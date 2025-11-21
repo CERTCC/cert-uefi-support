@@ -28,7 +28,7 @@ UefiDecompress(
   )
 {
   PyObject      *Retval;
-  UINT32        SrcDataSize;
+  Py_ssize_t    SrcDataSize;
   UINT32        DstDataSize;
   UINTN         Status;
   UINT8         *SrcBuf;
@@ -70,7 +70,7 @@ FrameworkDecompress(
   )
 {
   PyObject      *Retval;
-  UINT32        SrcDataSize;
+  Py_ssize_t    SrcDataSize;
   UINT32        DstDataSize;
   UINTN         Status;
   UINT8         *SrcBuf;
