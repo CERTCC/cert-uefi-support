@@ -1,7 +1,7 @@
 [project]
 name = "uefi_support"
 version = "0.9"
-authors = [{ name = "Michael Duggan", email = "mwd@cert.org"}]
+authors = [{ name = "CERT Threat Analysis Team", email = "cert@cert.org"}]
 description = "A package for decompressing file formats found in UEFI distributions"
 
 [build-system]
