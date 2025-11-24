@@ -31,7 +31,7 @@ jobs:
         run: cibuildwheel --output-dir dist
 
       - name: Build source distribution
-        run: python -m build --sdist --outdir dist
+        run: python -m build ./uefi_support --sdist --outdir dist
 
       - name: Upload built artifacts
         uses: actions/upload-artifact@v4
