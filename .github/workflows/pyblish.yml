@@ -28,10 +28,10 @@ jobs:
           pip install build cibuildwheel
 
       - name: Build wheels for all platforms
-        run: cibuildwheel ./uefi_support --output-dir dist
+        run: cibuildwheel --output-dir dist
 
       - name: Build source distribution
-        run: python -m build ./uefi_support --sdist --outdir dist
+        run: python -m build --sdist --outdir dist
 
       - name: Upload built artifacts
         uses: actions/upload-artifact@v4

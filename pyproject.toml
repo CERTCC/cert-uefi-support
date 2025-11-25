@@ -4,6 +4,17 @@ version = "0.9"
 authors = [{ name = "CERT Threat Analysis Team", email = "cert@cert.org"}]
 description = "A package for decompressing file formats found in UEFI distributions"
 
+# Explicitly tell setuptools NOT to auto-discover
+[tool.setuptools]
+packages = ["uefi_support"]
+
+[tool.setuptools.package-dir]
+uefi_support = "uefi_support"
+
+# Include non-Python files like huff11.bin
+[tool.setuptools.package-data]
+uefi_support = ["huff11.bin"]
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
