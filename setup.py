@@ -26,7 +26,9 @@ class FriendlyBuildExt(build_ext):
     def _has_compiler(self):
         """Try compiling a tiny C file using the detected compiler."""
         compiler = self.compiler
-        compiler.initialize()  # important for MSVC
+        # check for MSVC compiler and initiatlize it
+        if hasattr(compiler, 'initialize'):
+            compiler.initialize()
 
         tmpdir = tempfile.mkdtemp()
         src_file = os.path.join(tmpdir, "test.c")
