@@ -51,6 +51,7 @@ jobs:
     name: Publish to PyPI via Trusted Publishing
     needs: build
     runs-on: ubuntu-latest
+    environment: pypi
 
     permissions:
       id-token: write
@@ -59,7 +60,9 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
+          pattern: python-dist-*
           path: dist
+          merge-multiple: true
 
       - name: Publish
         uses: pypa/gh-action-pypi-publish@v1.10.0
