@@ -18,3 +18,7 @@ uefi_support = ["huff11.bin"]
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/cmu-sei/cert-uefi-support"
+Repository = "https://github.com/cmu-sei/cert-uefi-support"
