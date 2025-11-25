@@ -5,6 +5,7 @@ import tempfile
 import subprocess
 import os
 import sys
+import shutil
 
 # Friendly build_ext that checks for a working C compiler and prints helpful guidance if missing.
 class FriendlyBuildExt(build_ext):
@@ -24,21 +25,32 @@ class FriendlyBuildExt(build_ext):
 
     def _has_compiler(self):
         """Try compiling a tiny C file using the detected compiler."""
+        compiler = self.compiler
+        compiler.initialize()  # important for MSVC
+
+        tmpdir = tempfile.mkdtemp()
+        src_file = os.path.join(tmpdir, "test.c")
         try:
-            tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".c")
-            tmp.write(b"int main(void){return 0;}")
-            tmp.close()
-            cmd = self.compiler.compiler
-            # Attempt to compile the temporary file
-            subprocess.check_call(cmd + [tmp.name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            return True
-        except Exception:
-            return False
-        finally:
+            with open(src_file, "w") as f:
+                f.write("int main(void){return 0;}")
+
+            # Compile the source file
             try:
-                os.unlink(tmp.name)
+                objs = compiler.compile([src_file], output_dir=tmpdir)
             except Exception:
-                pass
+                return False
+
+            # Optional: try linking (Windows MSVC may need this)
+            try:
+                exe_file = os.path.join(tmpdir, "test.exe")
+                compiler.link_executable(objs, exe_file)
+            except Exception:
+                return False
+
+            return True
+
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
 
 
 # BaseTools path under edk2 repository (may be present as a submodule)
@@ -97,7 +109,7 @@ cabModule = Extension(
 
 setup(
     name="uefi_support",
-    version="0.9",
+    use_scm_version=True,
     package_dir={'uefi_support': 'uefi_support'},
     packages=['uefi_support'],
     package_data={'uefi_support': ['huff11.bin']},
