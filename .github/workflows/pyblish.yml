@@ -54,7 +54,6 @@ jobs:
           update: true
           install: >
             mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-g++
             mingw-w64-x86_64-python
             mingw-w64-x86_64-python-pip
 
