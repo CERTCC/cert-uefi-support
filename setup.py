@@ -110,7 +110,6 @@ cabModule = Extension(
 )
 
 setup(
-    name="uefi_support",
     use_scm_version=True,
     package_dir={'uefi_support': 'uefi_support'},
     packages=['uefi_support'],

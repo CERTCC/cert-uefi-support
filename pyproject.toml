@@ -1,5 +1,5 @@
 [project]
-name = "uefi_support"
+name = "cert-uefi-support"
 authors = [{ name = "CERT Threat Analysis Team", email = "cert@cert.org"}]
 description = "A package for decompressing file formats found in UEFI distributions"
 dynamic = ["version"]
