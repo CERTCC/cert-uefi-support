@@ -55,15 +55,16 @@ jobs:
           install: >
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-python
-            mingw-w64-x86_64-python-pip
 
       - name: Build wheel (Windows via MinGW)
         if: matrix.os == 'windows-latest'
         shell: msys2 {0}
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install build
-          python3 -m build --wheel --outdir dist
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install build
+          python -m build --wheel --outdir dist
 
       #################################################################
       # Source Distribution (only once)
