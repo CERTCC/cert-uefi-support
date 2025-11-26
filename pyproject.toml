@@ -1,6 +1,5 @@
 [project]
 name = "uefi_support"
-version = "0.0.0" #placeholder git tags take care of this
 authors = [{ name = "CERT Threat Analysis Team", email = "cert@cert.org"}]
 description = "A package for decompressing file formats found in UEFI distributions"
 
