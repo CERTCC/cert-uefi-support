@@ -71,7 +71,8 @@ jobs:
           python -m build --wheel --outdir dist
           pwd
           echo $XNAME
-          $SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT = $env:XNAME -replace 'v', ''  
+          XVERSION=${XNAME#v}
+          export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT="$XVERSION"
           echo $SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT
           ls -a
           git status
