@@ -25,31 +25,63 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Set up Python (for sdist only)
+      #################################################################
+      # LINUX + macOS: cibuildwheel
+      #################################################################
+      - name: Set up Python (Linux/macOS)
+        if: matrix.os != 'windows-latest'
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      - name: Install build tools
+      - name: Install build tools (Linux/macOS)
+        if: matrix.os != 'windows-latest'
         run: |
           python -m pip install --upgrade pip
           pip install build cibuildwheel
 
-      - name: Configure cibuildwheel to skip win32
-        run: echo "CIBW_SKIP=cp*-win32 pp*-win32" >> $GITHUB_ENV
-
-      - name: Build wheels for this platform
+      - name: Build wheels (Linux/macOS)
+        if: matrix.os != 'windows-latest'
         run: cibuildwheel --output-dir dist
 
-      - name: Build source distribution (only once)
+      #################################################################
+      # WINDOWS: Build with MinGW (avoids MSVC incompatibilities)
+      #################################################################
+      - name: Install MSYS2 + MinGW
+        if: matrix.os == 'windows-latest'
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-g++
+            mingw-w64-x86_64-python
+            mingw-w64-x86_64-python-pip
+
+      - name: Build wheel (Windows via MinGW)
+        if: matrix.os == 'windows-latest'
+        shell: msys2 {0}
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install build
+          python3 -m build --wheel --outdir dist
+
+      #################################################################
+      # Source Distribution (only once)
+      #################################################################
+      - name: Build source distribution (Linux only)
         if: matrix.os == 'ubuntu-latest'
         run: python -m build --sdist --outdir dist
 
+      #################################################################
+      # Upload Artifacts
+      #################################################################
       - name: Upload built artifacts
         uses: actions/upload-artifact@v4
         with:
           name: python-dist-${{ matrix.os }}
           path: dist/*
+
 
   publish:
     name: Publish to PyPI via Trusted Publishing
@@ -71,7 +103,7 @@ jobs:
       - name: Update Packaging Tools
         run: python -m pip install --upgrade twine pkginfo
 
-      - name: Publish
+      - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           skip-existing: false
