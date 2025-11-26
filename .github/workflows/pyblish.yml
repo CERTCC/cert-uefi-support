@@ -52,6 +52,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           update: true
+          msys2-path-type: inherit
           install: >
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-python
@@ -67,6 +68,9 @@ jobs:
           python3.exe -m pip install --upgrade pip || true
           python -m pip install --upgrade build
           python -m build --wheel --outdir dist
+          pwd
+          ls -a
+          git status
 
       #################################################################
       # Source Distribution (only once)
