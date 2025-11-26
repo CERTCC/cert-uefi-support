@@ -7,13 +7,14 @@ dynamic = ["version"]
 keywords = ["uefi", "firmware", "uefi-decompression", "support-tools"]
 license = { file = "LICENSE.md", content-type="text/markdown"}
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
     "License :: Other/Proprietary License",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Topic :: Security",
-    "Topic :: System :: Hardware :: UEFI",
+    "Topic :: System :: Hardware",
 ]
 
 # Explicitly tell setuptools NOT to auto-discover

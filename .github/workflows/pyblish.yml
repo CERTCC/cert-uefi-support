@@ -66,13 +66,8 @@ jobs:
           VENV_PATH=$(cygpath -u "$PWD/venv")
           python3 -m venv "$VENV_PATH"
           source "$VENV_PATH/bin/activate"
-          pwd
-          echo $XNAME
           XVERSION=${XNAME#v}
           export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT="$XVERSION"
-          echo $SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT
-          ls -a
-          git status
           python3.exe -m pip install --upgrade pip || true
           python -m pip install --upgrade build
           python -m build --wheel --outdir dist
