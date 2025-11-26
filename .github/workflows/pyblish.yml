@@ -61,6 +61,8 @@ jobs:
       - name: Build wheel (Windows via MinGW)
         if: matrix.os == 'windows-latest'
         shell: msys2 {0}
+        env:
+          SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT: ${{ github.ref_name#v }}
         run: |
           VENV_PATH=$(cygpath -u "$PWD/venv")
           python3 -m venv "$VENV_PATH"
