@@ -62,7 +62,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: msys2 {0}
         env:
-          SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT: ${{ github.ref_name#v }}
+          SETUPTOOLS_SCM_PRETEND_VERSION_FOR_CERT_UEFI_SUPPORT: ${GITHUB_REF_NAME#v} 
         run: |
           VENV_PATH=$(cygpath -u "$PWD/venv")
           python3 -m venv "$VENV_PATH"
