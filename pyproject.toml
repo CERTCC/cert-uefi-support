@@ -2,7 +2,20 @@
 name = "cert-uefi-support"
 authors = [{ name = "CERT Threat Analysis Team", email = "cert@cert.org"}]
 description = "A package for decompressing file formats found in UEFI distributions"
+readme = {file="README.md", content-type="text/markdown"}
 dynamic = ["version"]
+keywords = ["uefi", "firmware", "uefi-decompression", "support-tools"]
+license = { file = "LICENSE.md" }
+license-files = ["LICENSE.md"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Other/Proprietary License",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Security",
+    "Topic :: System :: Hardware :: UEFI",
+]
 
 # Explicitly tell setuptools NOT to auto-discover
 [tool.setuptools]
