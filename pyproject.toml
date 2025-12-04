@@ -5,11 +5,11 @@ description = "A package for decompressing file formats found in UEFI distributi
 readme = {file="README.md", content-type="text/markdown"}
 dynamic = ["version"]
 keywords = ["uefi", "firmware", "uefi-decompression", "support-tools"]
-license = { file = "LICENSE.md", content-type="text/markdown"}
+license = "BSD-2-Clause-Patent AND LGPL-2.1 AND MIT AND LicenseRef-Custom"
+license-files = [ "LICENSE.md" ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
-    "License :: Other/Proprietary License",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
@@ -29,7 +29,7 @@ uefi_support = "uefi_support"
 uefi_support = ["huff11.bin"]
 
 [build-system]
-requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.0", "wheel"]
+requires = ["setuptools>=77.0", "setuptools_scm[toml]>=6.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.urls]

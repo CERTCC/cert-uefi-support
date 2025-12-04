@@ -54,7 +54,6 @@ class FriendlyBuildExt(build_ext):
         finally:
             shutil.rmtree(tmpdir, ignore_errors=True)
 
-
 # BaseTools path under edk2 repository (may be present as a submodule)
 BaseToolsDir = Path("edk2/BaseTools")
 if not BaseToolsDir.exists():
@@ -106,7 +105,6 @@ cabModule = Extension(
     "uefi_support.Cab",
     sources = mspackFiles + [str(Path('uefi_support', 'Cab.c'))],
     include_dirs = [ str(mspackPath) ],
-    extra_compile_args = []
 )
 
 setup(
