@@ -51,7 +51,7 @@ jobs:
       # WINDOWS: Build with MinGW (avoids MSVC incompatibilities)
       #################################################################
       - name: Install MSYS2 + MinGW
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest' && matrix.python-version == '3.12'
         uses: msys2/setup-msys2@v2
         with:
           update: true
@@ -61,7 +61,7 @@ jobs:
             git
 
       - name: Build wheel (Windows via MinGW)
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest' && matrix.python-version == '3.12'
         shell: msys2 {0}
         env:
           XNAME: ${{ github.ref_name }}
