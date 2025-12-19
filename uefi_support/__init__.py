@@ -5,11 +5,10 @@ import sys
 import os
 import io
 from enum import Enum
-from collections import namedtuple
 from dataclasses import dataclass
 from types import TracebackType
 from collections.abc import Callable
-from typing import Optional, Union, Iterator, Any, Type, TypeVar, ParamSpec, BinaryIO
+from typing import Optional, Union, Iterator, Any, Type, TypeVar, ParamSpec
 
 from .EfiCompressor import (
     UefiDecompress as _uefiDecompress,
@@ -18,6 +17,11 @@ from .LzmaCompressor import LzmaDecompress as _lzmaDecompress, LzmaException
 from .HuffmanCompressor import HuffmanDecompress as _huffmanDecompress, HuffmanException
 from .huffman import HuffDecoder, Error as HuffError
 from .Cab import Decompressor as CabDecompressor
+try:
+    from ._version import version as __version__ # type: ignore
+except Exception:
+    __version__ = "0.0.0"
+
 
 __all__ = ['UefiDecompress', 'FrameworkDecompress', 'LzmaDecompress',
            'HuffmanDecompress', 'HuffmanFlags',
@@ -113,7 +117,6 @@ decoder = HuffDecoder()
 @wrap_errors(HuffError, "Huffman11", huff11len)
 def Huffman11Decompress(data: bytes, length: Optional[int] = None) -> bytes:
     """Decompress Intel ME 11 compressed data"""
-    global decoder
     if length is None:
         length = len(data)
     result = decoder.decompress(data, length)
@@ -150,7 +153,7 @@ class CabFile:
     def infolist(self) -> list[CabInfo]:
         return list(self.infolist_gen())
 
-    def open(self, filename: Union[str, CabInfo]) -> Optional[io.BytesIO]:
+    def open(self, filename: Union[str, CabInfo]) -> Optional[io.BytesIO]:  # noqa [A003]
         if isinstance(filename, CabInfo):
             filename = CabInfo.filename
         x = self.cab.first_file()

@@ -5,17 +5,18 @@ description = "A package for decompressing file formats found in UEFI distributi
 readme = {file="README.md", content-type="text/markdown"}
 dynamic = ["version"]
 keywords = ["uefi", "firmware", "uefi-decompression", "support-tools"]
-license = { file = "LICENSE.md", content-type="text/markdown"}
+license = "BSD-2-Clause-Patent AND LGPL-2.1 AND MIT AND LicenseRef-Custom"
+license-files = [ "LICENSE.md" ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
-    "License :: Other/Proprietary License",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Topic :: Security",
     "Topic :: System :: Hardware",
 ]
+requires-python = ">=3.10"
 
 # Explicitly tell setuptools NOT to auto-discover
 [tool.setuptools]
@@ -29,7 +30,7 @@ uefi_support = "uefi_support"
 uefi_support = ["huff11.bin"]
 
 [build-system]
-requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.0", "wheel"]
+requires = ["setuptools>=77.0", "setuptools_scm[toml]>=6.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.urls]
@@ -40,3 +41,5 @@ Repository = "https://github.com/cmu-sei/cert-uefi-support"
 [tool.setuptools_scm]
 version_scheme = "guess-next-dev"
 local_scheme = "node-and-date"
+fallback_version = "0.9.0"
+write_to = "uefi_support/_version.py"

@@ -5,4 +5,3 @@ def FrameworkDecompress(data: bytes) -> bytes: ...
 
 class EfiException(Exception):
     pass
-
